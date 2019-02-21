@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2017 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,8 @@ class DeferredResultInterceptorChain {
 	}
 
 	/**
-	 * @return true to continue error handling, or false to bypass any further
+	 * Determine if further error handling should be bypassed.
+	 * @return {@code true} to continue error handling, or false to bypass any further
 	 * error handling
 	 */
 	public boolean triggerAfterError(NativeWebRequest request, DeferredResult<?> deferredResult, Throwable ex)
@@ -106,7 +107,7 @@ class DeferredResultInterceptorChain {
 				this.interceptors.get(i).afterCompletion(request, deferredResult);
 			}
 			catch (Throwable ex) {
-				logger.error("Unhandled error from interceptor afterCompletion method", ex);
+				logger.trace("Ignoring failure in afterCompletion method", ex);
 			}
 		}
 	}
